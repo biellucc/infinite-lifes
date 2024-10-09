@@ -157,12 +157,9 @@ class LivroController extends Controller
     }
 
     public function vendas() {
-        $vendasChart = new VendasChart();
+        $vendasChart = new VendasChart;
         $vendasChart->labels(['one', 'two']);
-        $vendasChart->dataset(__('Sales'), 'line', [1, 2])
-            ->options([
-                'backgroundColor' => '#FF0000',
-            ]);
+        $vendasChart->dataset('Sales', 'line', [1, 2]);
         return view('vendedor.vendas.index', compact('vendasChart'));
     }
 }
