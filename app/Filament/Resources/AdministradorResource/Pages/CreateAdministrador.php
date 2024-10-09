@@ -22,18 +22,13 @@ class CreateAdministrador extends CreateRecord
         $registroUsuarioService = new registroUsuarioService();
         $usuario = $registroUsuarioService->storeUsuario($request);
 
-        unset($data['telefone']);
-        unset($data['email']);
-        unset($data['password']);
+        // Remover os campos que não pertencem à tabela administrador
+        unset($data['email'], $data['password'], $data['telefone']);
+
+        // Associar o user_id ao administrador
         $data['user_id'] = $usuario->id;
-        //$administrador = $registroUsuarioService->storeAdministrador($request, $usuario);
 
         return $data;
-    }
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
     }
 
     protected function getCreatedNotificationTitle(): ?string

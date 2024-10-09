@@ -36,7 +36,7 @@ class AdministradorResource extends Resource
                 Forms\Components\TextInput::make('nome')
                     ->label(__('Name'))
                     ->string()
-                    ->required(fn($get) => $get('tipo') == 'create')
+                    ->required()
                     ->placeholder('Gabriel Lucas Silva')
                     ->maxLength(100),
                 Forms\Components\TextInput::make('tipo')
@@ -47,15 +47,16 @@ class AdministradorResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->label(__('E-Mail Address'))
                     ->email()
-                    ->unique()
+                    ->unique('users', 'email')
                     ->required()
                     ->maxLength(255)
                     ->placeholder('email@gmail.com'),
                 Forms\Components\TextInput::make('telefone')
                     ->label(__('Phone Number'))
-                    ->required(fn($get) => $get('tipo') == 'create')
+                    ->unique('users', 'telefone')
+                    ->required()
                     ->maxLength(17)
-                    ->placeholder('Formato: 11 11 11111 1111')
+                    ->placeholder('55 19 99941-4321')
                     ->tel()
                     ->telRegex('/^[0-9]{2} [0-9]{2} [0-9]{5}-[0-9]{4}$/'),
                 Forms\Components\TextInput::make('password')
