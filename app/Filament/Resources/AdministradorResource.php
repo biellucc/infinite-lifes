@@ -55,7 +55,7 @@ class AdministradorResource extends Resource
                         return $rule;
                     })
                     ->maxLength(255)
-                    ->placeholder('email@gmail.com'),
+                    ->placeholder('gabriel@gmail.com'),
                 Forms\Components\TextInput::make('telefone')
                     ->label(__('Phone Number'))
                     ->unique('users', 'telefone', modifyRuleUsing: function (Unique $rule, $context, $record) {

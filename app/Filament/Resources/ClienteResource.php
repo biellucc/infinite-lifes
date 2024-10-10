@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Unique;
 
 class ClienteResource extends Resource
 {
@@ -34,19 +35,70 @@ class ClienteResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nome')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('sobrenome')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('cpf')
-                    ->required()
-                    ->maxLength(15),
-                Forms\Components\DatePicker::make('data_nascimento')
+                    ->placeholder('Gabriel')
+                    ->maxLength(50)
+                    ->string()
                     ->required(),
-                Forms\Components\TextInput::make('user_id')
+                Forms\Components\TextInput::make('sobrenome')
+                    ->placeholder('Lucas Silva')
                     ->required()
-                    ->numeric(),
+                    ->maxLength(50)
+                    ->string(),
+                Forms\Components\TextInput::make('cpf')
+                    ->label('CPF')
+                    ->placeholder('322.021.543-76')
+                    ->required()
+                    ->string()
+                    ->maxLength(15)
+                    ->regex('/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/')
+                    ->unique('cliente', 'cpf', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->getKey());
+                        }
+                        return $rule;
+                    }),
+                Forms\Components\DatePicker::make('data_nascimento')
+                    ->date()
+                    ->maxDate(now()->subYear(17))
+                    ->required(),
+                Forms\Components\TextInput::make('email')
+                    ->label(__('E-Mail Address'))
+                    ->email()
+                    ->required()
+                    ->unique('users', 'email', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
+                    ->maxLength(255)
+                    ->placeholder('gabriel@gmail.com'),
+                Forms\Components\TextInput::make('telefone')
+                    ->label(__('Phone Number'))
+                    ->unique('users', 'telefone', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
+                    ->required()
+                    ->maxLength(17)
+                    ->placeholder('55 19 99941-4321')
+                    ->tel()
+                    ->telRegex('/^[0-9]{2} [0-9]{2} [0-9]{5}-[0-9]{4}$/'),
+                Forms\Components\TextInput::make('password')
+                    ->label(__('Password'))
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->confirmed()
+                    ->hiddenOn('edit'),
+                Forms\Components\TextInput::make('password')
+                    ->label(__('Confirm Password'))
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->hiddenOn('edit'),
             ]);
     }
 
