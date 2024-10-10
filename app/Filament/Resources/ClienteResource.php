@@ -54,34 +54,40 @@ class ClienteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->label('ID user')
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID Customer')
                     ->numeric()
                     ->sortable()
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('nome')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sobrenome')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
+                    ->label('CPF')
+                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('data_nascimento')
-                    ->date()
+                    ->date('d, M, Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('usuario.email')
                     ->label('E-Mail Address')
+                    ->sortable()
                     ->translateLabel()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('usuario.telefone')
                     ->label('Phone Number')
+                    ->sortable()
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
