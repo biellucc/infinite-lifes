@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
+use App\Services\criptografiaService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -120,7 +121,11 @@ class ClienteResource extends Resource
                 Tables\Columns\TextColumn::make('cpf')
                     ->label('CPF')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->getStateUsing(function($record){
+                        $criptografiaService = new criptografiaService();
+                        return $criptografiaService->descriptografarCpf($record->cpf);
+                    }),
                 Tables\Columns\TextColumn::make('data_nascimento')
                     ->date('d, M, Y')
                     ->sortable()
