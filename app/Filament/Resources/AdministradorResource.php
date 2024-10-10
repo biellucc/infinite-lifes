@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Unique;
 
 class AdministradorResource extends Resource
 {
@@ -47,13 +48,22 @@ class AdministradorResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->label(__('E-Mail Address'))
                     ->email()
-                    ->unique('users', 'email')
-                    ->required()
+                    ->unique('users', 'email', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
                     ->maxLength(255)
                     ->placeholder('email@gmail.com'),
                 Forms\Components\TextInput::make('telefone')
                     ->label(__('Phone Number'))
-                    ->unique('users', 'telefone')
+                    ->unique('users', 'telefone', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
                     ->required()
                     ->maxLength(17)
                     ->placeholder('55 19 99941-4321')
@@ -79,8 +89,8 @@ class AdministradorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->label('ID user')
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID Admin')
                     ->numeric()
                     ->sortable()
                     ->translateLabel(),

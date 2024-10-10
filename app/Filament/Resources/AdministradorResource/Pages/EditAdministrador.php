@@ -5,9 +5,11 @@ namespace App\Filament\Resources\AdministradorResource\Pages;
 use App\Filament\Resources\AdministradorResource;
 use App\Models\Administrador;
 use App\Models\User;
+use App\Services\AtualizacaoUsuarioService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
@@ -35,13 +37,12 @@ class EditAdministrador extends EditRecord
             // Verificar se o e-mail é está disponível (se já existe ou não)
             $emailExists = User::where('email', $data['email'])->where('id', '!=', $usuario->id)->exists();
             if ($emailExists) {
-                throw new \Exception("E-mail em uso.");
+                throw new \Exception("O campo e-mail já está sendo utilizado..");
             } else {
                 // Atualizar o usuário na tabela users
-                $usuario->updateOrFail([
-                    'email' => $data['email'] ?? $usuario->email,
-                    'telefone' => $data['telefone'] ?? $usuario->telefone,
-                    'password' => isset($data['password']) && $data['password'] ? Hash::make($data['password']) : $usuario->password,
+                $usuario->update([
+                    'telefone' => $data['telefone'],
+                    'email' => $data['email'],
                 ]);
             }
         } catch (ModelNotFoundException $e) {
@@ -51,7 +52,7 @@ class EditAdministrador extends EditRecord
         }
 
         // Remover campos que não pertencem ao administrador
-        unset($data['email'], $data['password'], $data['telefone']);
+        unset($data['email'], $data['telefone']);
 
         return $data;
     }
