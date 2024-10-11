@@ -13,6 +13,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\text;
 
 class FeedbackResource extends Resource
 {
@@ -27,12 +30,16 @@ class FeedbackResource extends Resource
                 Forms\Components\TextInput::make('titulo')
                     ->label(__('Title'))
                     ->required()
+                    ->string()
                     ->maxLength(50)
+                    ->disabled(fn($record, $context) => $context == 'edit' && $record->user_id != Auth::id())
                     ->translateLabel(),
                 Forms\Components\Textarea::make('corpo')
                     ->label(__('Body'))
+                    ->string()
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->disabled(fn($record, $context) => $context == 'edit' && $record->user_id != Auth::id()),
                 Forms\Components\Select::make('status')
                     ->options([
                         'Aberto' => __('Opened'),
@@ -42,8 +49,9 @@ class FeedbackResource extends Resource
                     ->default('Aberto'),
                 Select::make('user_id')
                     ->label(__('ID user'))
-                    ->relationship(name: 'usuario', titleAttribute: 'id')
                     ->required()
+                    ->relationship(name: 'usuario', titleAttribute: 'id')->default(Auth::id())
+                    ->disabled(fn($record, $context) => $context == 'edit' && $record->user_id != Auth::id()),
             ]);
     }
 
@@ -51,29 +59,32 @@ class FeedbackResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('titulo')
                     ->translateLabel()
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('usuario.email')
+                Tables\Columns\TextColumn::make('status')
+                    ->translateLabel()
+                    ->sortable()
+                    ->searchable(),
+                    Tables\Columns\TextColumn::make('usuario.email')
                     ->label('E-Mail Address')
+                    ->sortable()
                     ->translateLabel()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('usuario.telefone')
                     ->label('Phone Number')
+                    ->sortable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->label('ID user')
-                    ->translateLabel()
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
