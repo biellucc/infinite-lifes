@@ -31,12 +31,12 @@ class criptografiaService
         return $cpf;
     }
 
-    public function descriptografarCpf($request)  {
-        $cpf_descriptografado = Crypt::decryptString($request->cpf);
-        $cpf_descriptografado = substr_replace($cpf_descriptografado, ' ***.***.', 6, -6);
-        $request->cpf = $cpf_descriptografado;
+    public function descriptografarCpf($cpf)  {
+        $cpf_descriptografado = Crypt::decryptString($cpf);
+        $cpf_descriptografado = substr_replace($cpf_descriptografado, '***.*** ', 4, -3);
+        $cpf = $cpf_descriptografado;
 
-        return;
+        return $cpf;
     }
 
     public function criptografarCnpj($cnpj)  {

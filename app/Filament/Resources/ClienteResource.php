@@ -120,11 +120,10 @@ class ClienteResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cpf')
                     ->label('CPF')
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->getStateUsing(function($record){
                         $criptografiaService = new criptografiaService();
-                        return $criptografiaService->descriptografarCpf($record->cpf);
+                        return $criptografiaService->descriptografarCpf($record['cpf']);
                     }),
                 Tables\Columns\TextColumn::make('data_nascimento')
                     ->date('d, M, Y')

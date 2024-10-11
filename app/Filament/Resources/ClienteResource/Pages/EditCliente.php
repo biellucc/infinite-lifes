@@ -8,6 +8,7 @@ use App\Models\User;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Crypt;
 
 class EditCliente extends EditRecord
 {
@@ -20,6 +21,8 @@ class EditCliente extends EditRecord
         $usuario = User::find($cliente->user_id);
         $data['email'] = $usuario->email;
         $data['telefone'] = $usuario->telefone;
+
+        $data['cpf'] = Crypt::decryptString($data['cpf']);
 
         return $data;
     }
