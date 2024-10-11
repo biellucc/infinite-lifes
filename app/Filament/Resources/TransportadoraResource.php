@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Unique;
 
 class TransportadoraResource extends Resource
 {
@@ -36,17 +37,55 @@ class TransportadoraResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('empresa')
                     ->label(__('Company'))
+                    ->placeholder('XFast')
                     ->required()
+                    ->string()
                     ->maxLength(100),
                 Forms\Components\TextInput::make('cnpj')
+                    ->placeholder('72.154.901/0001-49')
                     ->required()
-                    ->maxLength(19),
-                Forms\Components\TextInput::make('user_id')
+                    ->string()
+                    ->maxLength(19)
+                    ->regex('/^[0-9]{2}.[0-9]{3}.[0-9]{3}\/[0-9]{4}-[0-9]{2}$/')
+                    ->hiddenOn('edit'),
+                Forms\Components\TextInput::make('email')
+                    ->label(__('E-Mail Address'))
+                    ->email()
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('administrador_id')
+                    ->unique('users', 'email', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
+                    ->maxLength(255)
+                    ->placeholder('xfast@gmail.com'),
+                Forms\Components\TextInput::make('telefone')
+                    ->label(__('Phone Number'))
+                    ->unique('users', 'telefone', modifyRuleUsing: function (Unique $rule, $context, $record) {
+                        if ($context == "edit") {
+                            return $rule->ignore($record->user_id);
+                        }
+                        return $rule;
+                    })
                     ->required()
-                    ->numeric(),
+                    ->maxLength(17)
+                    ->placeholder('55 19 98941-3215')
+                    ->tel()
+                    ->telRegex('/^[0-9]{2} [0-9]{2} [0-9]{5}-[0-9]{4}$/'),
+                Forms\Components\TextInput::make('password')
+                    ->label(__('Password'))
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->confirmed()
+                    ->hiddenOn('edit'),
+                Forms\Components\TextInput::make('password')
+                    ->label(__('Confirm Password'))
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->hiddenOn('edit'),
             ]);
     }
 
@@ -59,7 +98,7 @@ class TransportadoraResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->translateLabel(),
-                    Tables\Columns\TextColumn::make('administrador_id')
+                Tables\Columns\TextColumn::make('administrador_id')
                     ->label(__('ID Admin'))
                     ->numeric()
                     ->sortable(),
@@ -71,7 +110,7 @@ class TransportadoraResource extends Resource
                     ->label('CNPJ')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->getStateUsing(function($record){
+                    ->getStateUsing(function ($record) {
                         $criptografiaService = new criptografiaService();
                         return $criptografiaService->descriptografarCnpj($record['cnpj']);
                     }),
