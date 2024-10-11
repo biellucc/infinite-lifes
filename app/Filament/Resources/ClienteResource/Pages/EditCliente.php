@@ -22,8 +22,6 @@ class EditCliente extends EditRecord
         $data['email'] = $usuario->email;
         $data['telefone'] = $usuario->telefone;
 
-        $data['cpf'] = Crypt::decryptString($data['cpf']);
-
         return $data;
     }
 
