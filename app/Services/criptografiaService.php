@@ -44,11 +44,11 @@ class criptografiaService
         return $cnpj;
     }
 
-    public function descriptografarCnpj($request)  {
-        $cnpj_descriptografado = Crypt::decryptString($request->cnpj);
-        $cnpj_descriptografado = substr_replace($cnpj_descriptografado, ' **.***.***', 8, -8);
-        $request->cpf = $cnpj_descriptografado;
+    public function descriptografarCnpj($cnpj)  {
+        $cnpj_descriptografado = Crypt::decryptString($cnpj);
+        $cnpj_descriptografado = substr_replace($cnpj_descriptografado, '.***.*** ', 2, -8);
+        $cnpj = $cnpj_descriptografado;
 
-        return;
+        return $cnpj;
     }
 }

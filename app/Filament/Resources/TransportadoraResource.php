@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TransportadoraResource\Pages;
 use App\Filament\Resources\TransportadoraResource\RelationManagers;
 use App\Models\Transportadora;
+use App\Services\criptografiaService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,6 +35,7 @@ class TransportadoraResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('empresa')
+                    ->label(__('Company'))
                     ->required()
                     ->maxLength(100),
                 Forms\Components\TextInput::make('cnpj')
@@ -53,30 +55,43 @@ class TransportadoraResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user_id')
-                ->label('ID user')
-                ->numeric()
-                ->sortable()
-                ->translateLabel(),
+                    ->label('ID Carrier')
+                    ->numeric()
+                    ->sortable()
+                    ->translateLabel(),
+                    Tables\Columns\TextColumn::make('administrador_id')
+                    ->label(__('ID Admin'))
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('empresa')
+                    ->label(__('Company'))
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cnpj')
-                    ->searchable(),
+                    ->label('CNPJ')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->getStateUsing(function($record){
+                        $criptografiaService = new criptografiaService();
+                        return $criptografiaService->descriptografarCnpj($record['cnpj']);
+                    }),
                 Tables\Columns\TextColumn::make('usuario.email')
-                    ->label('E-Mail Address')
+                    ->label(__('E-Mail Address'))
+                    ->sortable()
                     ->translateLabel()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('usuario.telefone')
-                    ->label('Phone Number')
+                    ->label(__('Phone Number'))
+                    ->sortable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('administrador_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label(__('Created_at'))
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label(__('Updated_at'))
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
