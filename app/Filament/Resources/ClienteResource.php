@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rules\Unique;
 
 class ClienteResource extends Resource
@@ -52,12 +53,8 @@ class ClienteResource extends Resource
                     ->string()
                     ->maxLength(15)
                     ->regex('/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/')
-                    ->unique('cliente', 'cpf', modifyRuleUsing: function (Unique $rule, $context, $record) {
-                        if ($context == "edit") {
-                            return $rule->ignore($record->getKey());
-                        }
-                        return $rule;
-                    }),
+                    ->unique('cliente', 'cpf')
+                    ->hiddenOn('edit'),
                 Forms\Components\DatePicker::make('data_nascimento')
                     ->date()
                     ->maxDate(now()->subYear(17))
