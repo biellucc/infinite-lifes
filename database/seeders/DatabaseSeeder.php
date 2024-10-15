@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             AdministradorSeeder::class,
             VendedorSeeder::class,
             ClienteSeeder::class,
-            VendedorSeeder::class,
             TransportadoraSeeder::class,
             GeneroSeeder::class,
             DimensaoSeeder::class,

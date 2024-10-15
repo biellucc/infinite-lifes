@@ -24,7 +24,7 @@ class TransportadoraFactory extends Factory
         $cnpj = $criptografiaService->criptografarCnpj($cnpj);
         return [
             'empresa' => $this->faker->company(),
-            'user_id' => User::pluck('id')->random(),
+            'user_id' =>  $this->faker->unique(true)->randomElement(User::pluck('id')->toArray()),
             'administrador_id' => Administrador::pluck('id')->random(),
             'cnpj' => $cnpj
         ];

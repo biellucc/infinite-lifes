@@ -20,7 +20,7 @@ class AdministradorFactory extends Factory
         return [
             'nome' => $this->faker->name(null),
             'tipo' => $this->faker->word(),
-            'user_id' => User::pluck('id')->random()
+            'user_id' => $this->faker->unique(true)->randomElement(User::pluck('id'))
         ];
     }
 }
