@@ -26,7 +26,7 @@ class PedidoController extends Controller
             return view('cliente.pedido.index', compact('pedidos'));
         } else if (Auth::user()->transportadora) {
             $transportadora = Auth::user()->transportadora;
-            $pedidos = $transportadora->pedidos()->get();
+            $pedidos = $transportadora->pedidos()->paginate(8);
             return view('transportadora.pedido.index', compact('pedidos'));
         }
 

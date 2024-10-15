@@ -8,6 +8,9 @@
     <div class="container">
         @if ($pedidos->isNotEmpty())
             <x-pedido.index :pedidos="$pedidos"></x-pedido.index>
+            <div class="pagination justify-content-center">
+                {{ $pedidos->links() }}
+            </div>
         @else
             <x-h1 class="mt-5">{{ __('No orders found') }}</x-h1>
         @endif
