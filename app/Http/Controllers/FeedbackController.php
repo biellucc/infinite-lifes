@@ -14,7 +14,7 @@ class FeedbackController extends Controller
 
         if (Auth::user()->cliente) {
             $cliente = Auth::user()->cliente;
-            $feedbacks = $cliente->usuario->feedbacks()->orderBy('updated_at','desc')->orderBy('created_at', 'desc')->get();
+            $feedbacks = $cliente->usuario->feedbacks()->orderBy('updated_at','desc')->orderBy('created_at', 'desc')->paginate(8);
         }
 
         return view('feedback.index', compact('feedbacks'));

@@ -20,7 +20,7 @@ class CartaoController extends Controller
     public function index(): View
     {
         $cliente = Auth::user()->cliente;
-        $cartoes = Cartao::where('status', 1)->where('cliente_id', $cliente->id)->get();
+        $cartoes = Cartao::where('status', 1)->where('cliente_id', $cliente->id)->paginate(8);
         $criptografiaService = new criptografiaService();
 
         if($cartoes->isNotEmpty()){

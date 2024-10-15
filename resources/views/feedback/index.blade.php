@@ -18,6 +18,9 @@
     <div class="container mt-3">
         @if ($feedbacks->isNotEmpty())
             <x-usuarios.feedback.index :feedbacks="$feedbacks"></x-usuarios.feedback.index>
+            <div class="d-flex justify-content-center">
+                {{ $feedbacks->links() }}
+            </div>
         @else
             <x-h1 class="mt-5">{{ __('No feedbacks found') }}</x-h1>
         @endif

@@ -8,6 +8,9 @@
     <div class="container">
         @if ($visitados->isNotEmpty())
             <x-cliente.visitado.index :visitados="$visitados"></x-cliente.visitado.index>
+            <div class="d-flex justify-content-center">
+                {{ $visitados->links() }}
+            </div>
         @else
             <x-h1 class="mt-5">{{ __('No visited found') }}</x-h1>
         @endif

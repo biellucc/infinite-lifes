@@ -10,7 +10,7 @@ class VisitadoController extends Controller
 {
     public function index() : View{
         $cliente = Auth::user()->cliente;
-        $visitados = $cliente->visitados()->get();
+        $visitados = $cliente->visitados()->paginate(8);
 
         return view('cliente.visitado.index', compact('visitados'));
     }

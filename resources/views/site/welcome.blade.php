@@ -911,7 +911,7 @@
 
     <x-navbar></x-navbar>
 
-    <div>
+    <div class="container">
         <div
             class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -932,6 +932,10 @@
                                     </div>
                                 @endforeach
                             </div>
+                        </div>
+                        <!-- Links de paginação -->
+                        <div class="d-flex justify-content-center">
+                                {{ $livros->links() }}
                         </div>
                     @else
                     @endif

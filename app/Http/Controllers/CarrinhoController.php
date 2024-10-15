@@ -16,7 +16,7 @@ class CarrinhoController extends Controller
     public function index(): View
     {
         $cliente = Auth::user()->cliente;
-        $carrinhos = $cliente->carrinhos()->where('status', 1)->get();
+        $carrinhos = $cliente->carrinhos()->where('status', 1)->paginate(3);
         return view('cliente.carrinho.index', compact('carrinhos'));
     }
 

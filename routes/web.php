@@ -52,7 +52,7 @@ Route::middleware('auth')->controller(CartaoController::class)->group(function()
 
 //Rotas do CarrinhoController
 Route::controller(CarrinhoController::class)->group(function(){
-    Route::get('/carrinho', 'index')->name('carrinho.index');
+    Route::get('/carrinhos', 'index')->name('carrinho.index');
     Route::get('/carrinho/remover', 'remover')->name('carrinho.remover');
     Route::post('/carrinho/adicionar', 'store')->name('carrinho.adicionar');
 });

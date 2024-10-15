@@ -88,6 +88,9 @@
 
                 @endforeach
             </div>
+            <div class="d-flex justify-content-center">
+                {{ $cartoes->links() }}
+            </div>
         </div>
     @else
         <x-h1 class="mt-5">{{ __('No registered cards found') }}</x-h1>

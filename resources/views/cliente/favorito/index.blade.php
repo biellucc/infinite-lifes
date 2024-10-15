@@ -7,9 +7,7 @@
 
     <div class="container">
         @if ($favoritos->isNotEmpty())
-
-                <x-cliente.favorito.favorito :favoritos="$favoritos"></x-cliente.favorito.favorito>
-
+            <x-cliente.favorito.favorito :favoritos="$favoritos"></x-cliente.favorito.favorito>
         @else
             <x-h1 class="mt-5">{{ __('No favorites found') }}</x-h1>
         @endif

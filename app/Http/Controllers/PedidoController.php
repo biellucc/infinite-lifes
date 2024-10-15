@@ -22,7 +22,7 @@ class PedidoController extends Controller
     {
         if (Auth::user()->cliente) {
             $cliente = Auth::user()->cliente;
-            $pedidos = $cliente->pedidos()->get();
+            $pedidos = $cliente->pedidos()->paginate(8);
             return view('cliente.pedido.index', compact('pedidos'));
         } else if (Auth::user()->transportadora) {
             $transportadora = Auth::user()->transportadora;

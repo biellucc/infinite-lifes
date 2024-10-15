@@ -1,5 +1,4 @@
 @props(['pedido'])
-
 <div class="col-md-6 col-lg-12 order-md-last">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-primary">{{ __('Order') }}: {{ $pedido->status }}</span>
