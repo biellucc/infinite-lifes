@@ -26,7 +26,7 @@ class ClienteFactory extends Factory
             'sobrenome' => $this->faker->lastName(null),
             'cpf' => $cpf,
             'data_nascimento' => $this->faker->date(),
-            'user_id' =>  $this->faker->unique(true)->randomElement(User::pluck('id')->toArray())
+            'user_id' =>  $this->faker->unique(false)->randomElement(User::pluck('id')->toArray())
         ];
     }
 }

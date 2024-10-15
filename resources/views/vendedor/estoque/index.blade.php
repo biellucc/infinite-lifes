@@ -26,6 +26,9 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="d-flex justify-content-center">
+                    {{ $livros->links() }}
+                </div>
             </div>
         @else
             <x-h1 class="mt-5">{{ __('No stock found') }}</x-h1>

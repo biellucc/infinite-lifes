@@ -19,7 +19,7 @@ class LivroController extends Controller
     public function index(): View
     {
         $vendedor = Auth::user()->vendedor;
-        $livros = $vendedor->livros()->get();
+        $livros = $vendedor->livros()->paginate(16);
         return view('vendedor.estoque.index', compact('livros'));
     }
 
