@@ -11,7 +11,7 @@
             </div>
             <div class="modal-footer">
                 {{ $footer }}
-                <x-primary-button type="button" data-bs-dismiss="modal">{{ __('Close') }}</x-primary-button>
+                <x-buttons.close_button type="button" data-bs-dismiss="modal" />
             </div>
         </div>
     </div>

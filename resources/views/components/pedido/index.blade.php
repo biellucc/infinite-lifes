@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-4">
                             <form action="{{ route('pedido.pedido', ['id' => $pedido->id]) }}" method="GET">
-                                <x-primary-button>{{ __('Informations') }}</x-primary-button>
+                                <x-buttons.information_button  valor="Open" />
                             </form>
                         </div>
                     </div>

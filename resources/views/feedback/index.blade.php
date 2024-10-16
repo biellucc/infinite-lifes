@@ -8,9 +8,7 @@
     @if (!Auth::user()->administrador)
         <div class="row">
             <div class="col-3">
-                <x-primary-button class="ms-3" type="button" data-bs-toggle="modal" data-bs-target="#storeModal">
-                    {{ __('Add') }}
-                </x-primary-button>
+                <x-buttons.add_button class="ms-3" type="button" data-bs-toggle="modal" data-bs-target="#storeModal" />
             </div>
         </div>
     @endif
@@ -45,7 +43,7 @@
                 </div>
             </x-slot>
             <x-slot name="footer">
-                <x-primary-button>{{ __('Add') }}</x-primary-button>
+                <x-buttons.add_button />
             </x-slot>
         </x-modal.storeScroll>
     </form>

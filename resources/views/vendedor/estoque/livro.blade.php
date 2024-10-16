@@ -11,7 +11,7 @@
                 <div class="col-4">
                     <form action="{{ route('livro.formulario_atualizar', $livro->id) }}" method="GET">
                         @csrf
-                        <x-primary-button>{{ __('Alter') }}</x-primary-button>
+                        <x-buttons.alter_button />
                     </form>
                 </div>
                 <div class="col-4">

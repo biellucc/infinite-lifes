@@ -15,8 +15,8 @@
                         {{ $feedback->updated_at }}</small>
 
                     <div class="col-4">
-                        <x-primary-button type="button" data-bs-toggle="modal"
-                            data-bs-target="#baseModal{{ $feedback->id }}">{{ __('Open') }}</x-primary-button>
+                        <x-buttons.information_button type="button" data-bs-toggle="modal"
+                            data-bs-target="#baseModal{{ $feedback->id }}" valor="Open" />
                     </div>
                 </div>
                 <span class="text-body-secondary">{{ __('Status') }}: {{ $feedback->status }}</span>

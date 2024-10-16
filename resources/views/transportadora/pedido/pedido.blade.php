@@ -23,7 +23,7 @@
                         </x-select>
                     </div>
                     <div class="col-5">
-                        <x-primary-button>{{ __('Alter') }}</x-primary-button>
+                        <x-buttons.alter_button />
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
 
         <form action="{{ route('pedido.index') }}" method="get">
             <div class="d-grid mx-auto">
-                <x-primary-button class="text-center">{{ __('Back') }}</x-primary-button>
+                <x-buttons.close_button class="text-center" />{{ __('Back') }}</x-buttons.close_button>
             </div>
         </form>
     </div>

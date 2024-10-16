@@ -30,7 +30,7 @@
                                 @csrf
                                 <x-text-input id="livro_id" class="block mt-1 w-full" type="hidden" name="livro_id"
                                     :value="$livro->id" />
-                                <x-primary-button>{{ __('Add') }}</x-primary-button>
+                                <x-buttons.cart_button />
                             </form>
                         @else
                             <x-primary-button disabled>{{ __('Sold out') }}</x-primary-button>
@@ -42,7 +42,7 @@
                                 :value="$carrinho->id" />
                             <x-text-input id="livro_id" class="block mt-1 w-full" type="hidden" name="livro_id"
                                 :value="$livro->id" />
-                            <x-danger-button>{{ __('Remove') }}</x-danger-button>
+                            <x-buttons.cart_button valor="Remove from cart" />
                         </form>
                     @endif
                 </div>
@@ -52,13 +52,13 @@
                             @csrf
                             <x-text-input id="livro_id" class="block mt-1 w-full" type="hidden" name="livro_id"
                                 :value="$livro->id" />
-                            <x-primary-button>{{ __('Favorite') }}</x-primary-button>
+                            <x-buttons.favorite_button />
                         </form>
                     @else
                         <form action="{{ route('favorito.remover') }}" method="GET">
                             <x-text-input id="favorito_id" class="block mt-1 w-full" type="hidden" name="favorito_id"
                                 :value="$favorito->id" />
-                            <x-danger-button>{{ __('Unfavorite') }}</x-danger-button>
+                            <x-buttons.favorite_button valor="Unfavorite" />
                         </form>
                     @endif
                 </div>
@@ -78,8 +78,7 @@
             <h5><strong>{{ __('Comments') }}</strong></h5>
         </div>
 
-        <x-primary-button class="mt-1" type="button" data-bs-toggle="modal" data-bs-target="#storeModal">
-            {{ __('Add') }}</x-primary-button>
+        <x-buttons.add_button class="mt-1" type="button" data-bs-toggle="modal" data-bs-target="#storeModal"  valor="Comment" />
 
         @if ($comentarios->isNotEmpty())
             <x-livro.comentario :comentarios="$comentarios"></x-livro.comentario>
@@ -101,7 +100,7 @@
                     required />
             </x-slot>
             <x-slot name="footer">
-                <x-primary-button>{{ __('Add') }}</x-primary-button>
+                <x-buttons.add_button />
             </x-slot>
         </x-modal.storeScroll>
     </form>

@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="btn-group">
                     <form action="{{ route('livro.livro', ['titulo' => $titulo ?? null, 'id' => $id]) }}" method="get">
-                        <x-primary-button>{{ __('Informations') }}</x-primary-button>
+                        <x-buttons.information_button />
                     </form>
                 </div>
             </div>

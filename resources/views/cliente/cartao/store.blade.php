@@ -35,7 +35,7 @@
 
         <div class="d-flex justify-content-center container mt-1">
             <div class="d-grid gap-2 col-5 mx-auto shadow">
-                <x-primary-button>Cadastrar</x-primary-button>
+                <x-buttons.add_button/>
             </div>
         </div>
     </form>

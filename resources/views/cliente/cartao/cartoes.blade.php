@@ -8,9 +8,7 @@
 
 
     <form action="{{ route('cartao.formulario') }}" method="get">
-        <x-primary-button class="ms-3">
-            {{ __('Add') }}
-        </x-primary-button>
+        <x-buttons.add_button class="ms-3" />
     </form>
 
     @if ($cartoes->isNotEmpty())
@@ -33,8 +31,8 @@
                         </x-cliente.cartao.base>
 
                         <div class="d-grid gap-2 col-5 mx-auto shadow">
-                            <x-primary-button type="button" data-bs-toggle="modal"
-                                data-bs-target="#baseModal{{ $cartao->id }}">{{ __('Informations') }}</x-primary-button>
+                            <x-buttons.information_button type="button" data-bs-toggle="modal"
+                                data-bs-target="#baseModal{{ $cartao->id }}" />
                         </div>
                     </div>
 
@@ -74,7 +72,7 @@
                                     </x-cliente.cartao.base>
 
                                     <x-slot name="footer">
-                                        <x-primary-button>{{ __('Alter') }}</x-primary-button>
+                                        <x-buttons.alter_button />
                                 </form>
 
                                 <form action="{{ route('cartao.deletar', $cartao->id) }}" method="POST">
@@ -85,7 +83,6 @@
                             </x-slot>
                         </x-modal.baseScroll>
                     @endif
-
                 @endforeach
             </div>
             <div class="d-flex justify-content-center">
