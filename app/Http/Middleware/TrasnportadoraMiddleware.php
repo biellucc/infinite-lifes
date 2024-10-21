@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class ClienteMiddleware
+class TrasnportadoraMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class ClienteMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->cliente){
+        if (Auth::user()->transportadora) {
             return $next($request);
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Você não possui permissão para acessar essa página.');
         }
     }
