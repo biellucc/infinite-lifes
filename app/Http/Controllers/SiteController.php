@@ -14,7 +14,8 @@ class SiteController extends Controller
                 ->join('users', 'vendedor.user_id', '=', 'users.id')
                 ->where('users.status', 1)
                 ->select('livro.*')
-                ->paginate(8);
+                ->orderBy('livro.updated_at', 'desc')
+                ->paginate(12);
         return view('site.welcome', compact('livros'));
     }
 

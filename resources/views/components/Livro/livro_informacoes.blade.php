@@ -3,8 +3,11 @@
     <div class="row mt-4">
 
         <div class="col-8">
-            <div>
-                <img src="/imagem/livros/{{ $livro->imagem }}" alt="{{ $livro->tipo }}" class="img-fluid">
+            <div class="card-img-top" style="background-color: transparent; border:none">
+                <x-livro.svg_imagem height="100%" width="100%">
+                    <x-slot name="imagem">{{ $livro->imagem }}</x-slot>
+                    <x-slot name="titulo">{{ $livro->titulo }}</x-slot>
+                </x-livro.svg_imagem>
             </div>
 
             <div class="row mt-2">

@@ -19,7 +19,7 @@ class LivroController extends Controller
     public function index(): View
     {
         $vendedor = Auth::user()->vendedor;
-        $livros = $vendedor->livros()->paginate(16);
+        $livros = $vendedor->livros()->orderBy('updated_at', 'desc')->paginate(16);
         return view('vendedor.estoque.index', compact('livros'));
     }
 
@@ -72,15 +72,15 @@ class LivroController extends Controller
             'autor' => $request->autor,
             'estoque' => $request->estoque,
             'valor' => $request->valor,
+            "imagem" => $nomeImagem,
             'isbn13' => $request->isbn13,
             'idioma' => $request->idioma,
             'edicao' => $request->edicao,
             'editora' => $request->editora,
             'idade' => $request->idade,
             "data_publicacao" => $request->data_publicacao,
-            "imagem" => $nomeImagem,
-            'dimensao_id' => $request->dimensao,
-            "genero_id" => $request->genero
+            'dimensao_id' => $request->dimensao_id,
+            "genero_id" => $request->genero_id
         ]);
 
         return redirect(route('livro.livro', [$livro->titulo, $livro->id]));
@@ -135,7 +135,7 @@ class LivroController extends Controller
         $imagem->move(public_path('assets/livro/imagem'), $nomeImagem);
         $inputs = $request->except(['_token', '_method']);
         foreach ($inputs as $input => $valor) {
-            $livro->input = $valor;
+            $livro->$input = $valor;
         }
         $livro->imagem = $nomeImagem;
         $livro->save();
