@@ -33,10 +33,19 @@
             </x-cliente.cartao.base>
         </div>
 
-        <div class="d-flex justify-content-center container mt-1">
+        <div class="d-flex justify-content-center container my-1">
             <div class="d-grid gap-2 col-5 mx-auto shadow">
-                <x-buttons.add_button/>
+                <x-buttons.add_button />
             </div>
         </div>
     </form>
+
+    <form action="{{ route('cartao.index') }}" method="GET">
+        <div class="d-flex justify-content-center container my-1">
+            <div class="d-grid gap-2 col-5 mx-auto shadow">
+                <x-buttons.close_button>{{ __('Back') }}</x-buttons.close_button>
+            </div>
+        </div>
+    </form>
+
 </x-app-layout>

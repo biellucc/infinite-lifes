@@ -139,6 +139,14 @@
                             <x-primary-button>{{ __('Order') }}</x-primary-button>
                         </div>
                     </form>
+
+                    <form action="{{ route('carrinho.index') }}" method="GET">
+                        <div class="d-flex justify-content-center container my-1">
+                            <div class="d-grid gap-2 col-12 mx-auto shadow">
+                                <x-buttons.close_button valor="Back"/>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>

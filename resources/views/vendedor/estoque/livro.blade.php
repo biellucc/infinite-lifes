@@ -15,7 +15,9 @@
                     </form>
                 </div>
                 <div class="col-4">
-                    <a href="{{ route('estoque.index') }}" class="btn btn-dark">{{ __('Back') }}</a>
+                    <form action="{{ route('estoque.index') }}" method="GET">
+                        <x-buttons.close_button valor="Back"/>
+                    </form>
                 </div>
                 <div class="col-4">
                     <form action="{{ route('livro.deletar', $livro->id) }}" method="POST">

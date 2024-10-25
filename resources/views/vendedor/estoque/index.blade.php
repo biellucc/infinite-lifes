@@ -6,9 +6,7 @@
     </x-slot>
 
     <form action="{{ route('livro.formulario') }}" method="get">
-        <x-primary-button class="ms-3">
-            {{ __('Add') }}
-        </x-primary-button>
+        <x-buttons.add_button class="ms-3" />
     </form>
 
     <div class="container">

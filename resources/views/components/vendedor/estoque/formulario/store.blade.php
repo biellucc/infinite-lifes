@@ -86,7 +86,7 @@
     <div class="my-3">
         <x-input-label for="idade" :value="__('Age')" />
         <x-text-input id="idade" class="block mt-1 w-full" type="number" name="idade" :value="old('idade')"
-           placeholder="18" autocomplete="idade" min="5" max="18" required />
+            placeholder="18" autocomplete="idade" min="5" max="18" required />
         <x-input-error :messages="$errors->get('idade')" class="mt-2" />
     </div>
 
@@ -112,10 +112,19 @@
         <x-input-error :messages="$errors->get('imagem')" class="mt-2" />
     </div>
 
-    <div class="flex items-center justify-end my-3">
-        <x-primary-button class="ms-4">
-            {{ __('Register') }}
-        </x-primary-button>
+    <div class="d-flex justify-content-center container my-1">
+        <div class="d-grid gap-2 col-5 mx-auto shadow">
+            <x-primary-button>
+                {{ __('Register') }}
+            </x-primary-button>
+        </div>
     </div>
+</form>
 
+<form action="{{ route('estoque.index') }}" method="GET">
+    <div class="d-flex justify-content-center container my-1">
+        <div class="d-grid gap-2 col-5 mx-auto shadow">
+            <x-buttons.close_button  valor="Back"/>
+        </div>
+    </div>
 </form>

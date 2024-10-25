@@ -115,10 +115,18 @@
         <x-input-error :messages="$errors->get('imagem')" class="mt-2" />
     </div>
 
-    <div class="flex items-center justify-end my-3">
-        <x-primary-button class="ms-4">
-            {{ __('Register') }}
-        </x-primary-button>
+    <div class="d-flex justify-content-center container my-1">
+        <div class="d-grid gap-2 col-5 mx-auto shadow">
+            <x-buttons.alter_button />
+        </div>
     </div>
 
+</form>
+
+<form action="{{ route('estoque.index') }}" method="GET">
+    <div class="d-flex justify-content-center container my-1">
+        <div class="d-grid gap-2 col-5 mx-auto shadow">
+            <x-buttons.close_button  valor="Back"/>
+        </div>
+    </div>
 </form>
