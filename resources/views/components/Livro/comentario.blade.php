@@ -12,8 +12,8 @@
                     @if (Auth::check() && Auth::user()->cliente && $comentario->cliente_id == Auth::user()->cliente->id)
                         <div class="row mt-2">
                             <div class="col-4 me-4">
-                                <x-primary-button type="button" data-bs-toggle="modal"
-                                    data-bs-target="#baseModal{{ $comentario->id }}">{{ __('Alter') }}</x-primary-button>
+                                <x-buttons.alter_button type="button" data-bs-toggle="modal"
+                                    data-bs-target="#baseModal{{ $comentario->id }}" />
 
                                 <!-- Modal Atualizar Comments -->
                                 <x-modal.baseScroll :id="$comentario->id">
@@ -31,7 +31,7 @@
                                             </div>
                                     </x-slot>
                                     <x-slot name="footer">
-                                        <x-primary-button>{{ __('Alter') }}</x-primary-button>
+                                        <x-buttons.alter_button />
                                         </form>
                                     </x-slot>
                                 </x-modal.baseScroll>

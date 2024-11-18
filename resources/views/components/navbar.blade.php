@@ -1,4 +1,4 @@
-<nav class="bg-blue-600 p-4">
+<nav class="bg-purple-600 p-4">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Logo e título -->
         <a href="{{ route('site') }}" class="text-white text-xl font-semibold">
@@ -37,8 +37,7 @@
                             @else
                                 <li><a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700">{{ __('Profile') }}</a></li>
                                 @if (Auth::user()->vendedor)
-                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __('Stock') }}</a></li>
-                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __('Sales') }}</a></li>
+                                    <li><a href="{{ route('estoque.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Stock') }}</a></li>
                                 @elseif (Auth::user()->cliente)
                                     <li><a href="{{ route('carrinho.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Carts') }}</a></li>
                                     <li><a href="{{ route('favorito.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Favorites') }}</a></li>
@@ -48,7 +47,7 @@
                                 @else
                                     <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __("Users") }}</a></li>
                                 @endif
-                                <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __("Feedback") }}</a></li>
+                                <li><a href="{{ route('feedback.index') }}" class="block px-4 py-2 text-gray-700">{{ __("Feedback") }}</a></li>
                                 <li><hr class="border-gray-200 my-2" />
                                 <li><a href="{{ route('sair') }}" class="block px-4 py-2 text-gray-700">{{ __('Log Out') }}</a></li>
                             @endif
@@ -60,7 +59,7 @@
             <!-- Formulário de pesquisa -->
             <form class="flex items-center space-x-2">
                 <input type="search" placeholder="{{ __('Search') }}" class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button type="submit" class="border border-purple-600 text-white px-4 py-2 rounded hover:bg-teal-500">
                     {{ __("Search") }}
                 </button>
             </form>
