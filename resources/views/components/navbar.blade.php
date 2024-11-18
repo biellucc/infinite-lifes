@@ -1,54 +1,81 @@
-<nav class="navbar navbar-expand-lg bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('site') }}">{{ config('app.name', 'Infinite Life') }}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <x-responsive-nav-link class="nav-link" :href="route('site')" :active="request()->routeIs('site')">{{ __('Home') }}</x-responsive-nav-link>
+<nav class="bg-blue-600 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <!-- Logo e título -->
+        <a href="{{ route('site') }}" class="text-white text-xl font-semibold">
+            {{ config('app.name', 'Infinite Life') }}
+        </a>
 
-                <li class="nav-item">
-                    <x-responsive-nav-link class="nav-link" :href="route('site')"
-                        :active="request()->routeIs('site')">{{ __('Books') }}</x-responsive-nav-link>
+        <!-- Botão para menu colapsável (responsivo) -->
+        <button @click="isOpen = !isOpen" class="text-white lg:hidden">
+            <span class="navbar-toggler-icon">☰</span>
+        </button>
+
+        <!-- Conteúdo da navbar -->
+        <div :class="{'block': isOpen, 'hidden': !isOpen}" class="lg:flex lg:items-center lg:space-x-6">
+            <ul class="flex space-x-4">
+                <!-- Link para Home -->
+                <li>
+                    <a href="{{ route('site') }}" class="text-white hover:text-gray-300">{{ __('Home') }}</a>
                 </li>
-                <x-dropdown>
-                    <x-slot name="trigger">
-                        <span>Perfil</span>
-                    </x-slot>
-                    <x-slot name="content">
-                        @if (!Auth::check())
-                            <x-dropdown-link class="dropdown-item" :href="route('login')">{{ __('Log in') }}</x-dropdown-link>
-                            <x-dropdown-link class="dropdown-item" href="{{ route('register') }}">{{ __('Register') }}</x-dropdown-link>
-                        @else
-                        <x-dropdown-link class="dropdown-item" :href="route('profile.edit')">{{ __('Profile') }}</x-dropdown-link>
-                            @if (Auth::user()->vendedor)
-                                <x-dropdown-link class="dropdown-item" href="{{ route('estoque.index') }}">{{ __('Stock') }}</x-dropdown-link>
-                                <x-dropdown-link class="dropdown-item" href="#">{{ __('Sales') }}</x-dropdown-link>
-                            @elseif (Auth::user()->cliente)
-                                <x-dropdown-link class="dropdown-item" href="{{ route('carrinho.index') }}">{{ __('Carts') }}</x-dropdown-link>
-                                <x-dropdown-link class="dropdown-item" href="{{ route('favorito.index') }}">{{ __('Favorites') }}</x-dropdown-link>
-                                <x-dropdown-link class="dropdown-item" href="{{ route('visitado.index') }}">{{ __('Visiteds') }}</x-dropdown-link>
-                                <x-dropdown-link class="dropdown-item" href="{{ route('cartao.index') }}">{{ __('Card') }}</x-dropdown-link>
-                                <x-dropdown-link class="dropdown-item" href="{{ route('pedido.index') }}">{{ __('Orders') }}</x-dropdown-link>
+
+                <!-- Link para Books -->
+                <li>
+                    <a href="{{ route('site') }}" class="text-white hover:text-gray-300">{{ __('Books') }}</a>
+                </li>
+
+                <!-- Dropdown de Perfil -->
+                <li class="relative" x-data="{ open: false }" @click.away="open = false">
+                    <button @click="open = !open" class="text-white hover:text-gray-300">
+                        {{ __('Perfil') }}
+                    </button>
+                    <div x-show="open" x-transition
+                         class="absolute right-0 bg-white shadow-lg rounded-md w-48 mt-2 z-50">
+                        <ul class="py-2">
+                            @if (!Auth::check())
+                                <li><a href="{{ route('login') }}" class="block px-4 py-2 text-gray-700">{{ __('Log in') }}</a></li>
+                                <li><a href="{{ route('register') }}" class="block px-4 py-2 text-gray-700">{{ __('Register') }}</a></li>
                             @else
-                                <x-dropdown-link class="dropdown-item" href="#">{{ __("Users") }}</x-dropdown-link>
+                                <li><a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700">{{ __('Profile') }}</a></li>
+                                @if (Auth::user()->vendedor)
+                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __('Stock') }}</a></li>
+                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __('Sales') }}</a></li>
+                                @elseif (Auth::user()->cliente)
+                                    <li><a href="{{ route('carrinho.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Carts') }}</a></li>
+                                    <li><a href="{{ route('favorito.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Favorites') }}</a></li>
+                                    <li><a href="{{ route('visitado.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Visiteds') }}</a></li>
+                                    <li><a href="{{ route('cartao.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Card') }}</a></li>
+                                    <li><a href="{{ route('pedido.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Orders') }}</a></li>
+                                @else
+                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __("Users") }}</a></li>
+                                @endif
+                                <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __("Feedback") }}</a></li>
+                                <li><hr class="border-gray-200 my-2" />
+                                <li><a href="{{ route('sair') }}" class="block px-4 py-2 text-gray-700">{{ __('Log Out') }}</a></li>
                             @endif
-                            <x-dropdown-link class="dropdown-item" href="#">{{ __("Feedback") }}</x-dropdown-link>
-                            <x-dropdown-link>
-                                <hr class="dropdown-divider">
-                            </x-dropdown-link>
-                            <x-dropdown-link class="dropdown-item" :href="route('sair')">{{ __('Log Out') }}</x-dropdown-link>
-                        @endif
-                    </x-slot>
-                </x-dropdown>
+                        </ul>
+                    </div>
+                </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="{{ __('Search') }}" aria-label="Search">
-                <button class="btn btn-outline-danger" type="submit">{{ __("Search") }}</button>
+
+            <!-- Formulário de pesquisa -->
+            <form class="flex items-center space-x-2">
+                <input type="search" placeholder="{{ __('Search') }}" class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    {{ __("Search") }}
+                </button>
             </form>
         </div>
     </div>
 </nav>
 
+<!-- Scripts do Alpine.js (para comportamento do dropdown e menu) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('navbar', () => ({
+            isOpen: false,
+            isDropdownOpen: false
+        }));
+    });
+</script>
