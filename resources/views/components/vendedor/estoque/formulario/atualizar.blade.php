@@ -13,14 +13,14 @@
     </div>
 
     <div>
-        <x-input-label for="resumo" :value="__('Summary')" />
+        <x-input-label for="resumo" :value="__('About')" />
         <x-textarea id="resumo" class="block mt-1 w-full form-control" type="text" name="resumo" required>
             {{ $livro->resumo }} </x-textarea>
         <x-input-error :messages="$errors->get('resumo')" class="mt-2" />
     </div>
 
     <div class="my-3">
-        <x-input-label for="quantidade_paginas" :value="__('Quantity of Pages')" />
+        <x-input-label for="quantidade_paginas" :value="__('Amount of Pages')" />
         <x-text-input id="quantidade_paginas" class="block mt-1 w-full" type="number" name="quantidade_paginas"
             :value="$livro->quantidade_paginas" autocomplete="quantidade_paginas" min="1" required />
         <x-input-error :messages="$errors->get('quantidade_paginas')" class="mt-2" />
@@ -86,7 +86,7 @@
     </div>
 
     <div class="my-3">
-        <x-input-label for="idade" :value="__('Age')" />
+        <x-input-label for="idade" :value="__('Recommended for')" />
         <x-text-input id="idade" class="block mt-1 w-full" type="number" name="idade" :value="$livro->idade"
             autocomplete="idade" min="5" max="18" required />
         <x-input-error :messages="$errors->get('idade')" class="mt-2" />
@@ -103,7 +103,7 @@
     </div>
 
     <div class="my-3">
-        <x-input-label for="data_publicacao" :value="__('Publication Date')" />
+        <x-input-label for="data_publicacao" :value="__('Date of publication')" />
         <x-text-input id="data_publicacao" class="block mt-1 w-full" type="date" name="data_publicacao"
             :value="$livro->data_publicacao" autocomplete="data_publicacao" required />
         <x-input-error :messages="$errors->get('data_publicacao')" class="mt-2" />

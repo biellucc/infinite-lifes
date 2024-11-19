@@ -32,6 +32,7 @@
                 <p class="card-text"><strong>{{ __('Date of publication') }}:</strong> {{ $livro->data_publicacao }}
                 </p>
                 <p class="card-text"><strong>{{ __('Amount') }}:</strong> {{ $livro->estoque }}</p>
+                <p class="card-text"><strong>{{ __('Value') }}:</strong> {{ $livro->valor }}</p>
             </div>
             <div class="mt-2">
                 <h3><strong>{{ __('About') }}</strong></h3>
@@ -55,7 +56,11 @@
                     {{ $livro->vendedor->usuario?->endereco?->bairro }}
                 </p>
                 <p><strong>{{ __('endereco.Address') }}:</strong
-                        {{ $livro->vendedor->usuario?->endereco?->endereco }}></p>
+                        {{ $livro->vendedor->usuario->endereco->endereco }}></p>
+                @if ($livro->vendedor->usuario->endereco->complemento != null)
+                    <p><strong>{{ __('Complement') }}:</strong
+                            {{ $livro->vendedor->usuario->endereco->complemento }}></p>
+                @endif
             </div>
         </div>
 
