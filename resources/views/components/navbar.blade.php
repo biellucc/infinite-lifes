@@ -45,7 +45,7 @@
                                     <li><a href="{{ route('cartao.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Card') }}</a></li>
                                     <li><a href="{{ route('pedido.index') }}" class="block px-4 py-2 text-gray-700">{{ __('Orders') }}</a></li>
                                 @else
-                                    <li><a href="#" class="block px-4 py-2 text-gray-700">{{ __("Users") }}</a></li>
+                                    <li><a href="{{ route('pedido.index') }}" class="block px-4 py-2 text-gray-700">{{ __("Orders") }}</a></li>
                                 @endif
                                 <li><a href="{{ route('feedback.index') }}" class="block px-4 py-2 text-gray-700">{{ __("Feedback") }}</a></li>
                                 <li><hr class="border-gray-200 my-2" />
