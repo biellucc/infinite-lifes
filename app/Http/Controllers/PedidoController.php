@@ -7,6 +7,7 @@ use App\Models\Cartao;
 use App\Models\Favorito;
 use App\Models\Livro;
 use App\Models\Pedido;
+use App\Models\Transportadora;
 use App\Models\User;
 use App\Services\criptografiaService;
 use Illuminate\Http\RedirectResponse;
@@ -108,7 +109,8 @@ class PedidoController extends Controller
         $pedido = $cliente->pedidos()->create([
             'carrinho_id' => $request->carrinho_id,
             'cartao_id' => $request->cartao,
-            'valor' => $request->valor
+            'valor' => $request->valor,
+            'transportadora_id' => Transportadora::Pluck('id')->random()
         ]);
 
         $carrinho = Carrinho::find($request->carrinho_id);
