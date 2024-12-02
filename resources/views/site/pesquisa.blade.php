@@ -26,6 +26,7 @@
                             {{ $livros->links() }}
                         </div>
                     @else
+                        <x-h1 class="mt-5">{{ __('No books found') }}</x-h1>
                     @endif
                 </main>
             </div>
