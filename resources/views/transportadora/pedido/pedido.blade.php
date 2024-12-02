@@ -32,7 +32,7 @@
 
         <form action="{{ route('pedido.index') }}" method="get">
             <div class="d-grid mx-auto">
-                <x-buttons.close_button class="text-center" />{{ __('Back') }}</x-buttons.close_button>
+                <x-buttons.close_button class="text-center">{{ __('Back') }}</x-buttons.close_button>
             </div>
         </form>
     </div>
