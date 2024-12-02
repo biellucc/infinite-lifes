@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(SiteController::class)->group(function(){
     Route::get('/', 'site')->name('site');
     Route::get('/livro-{titulo?}-{id}', 'livro')->name('site.livro');
+    Route::get('/pesquisar', 'pesquisar')->name('site.livro.pesquisar');
 });
 
 Route::get('/dashboard', function () {

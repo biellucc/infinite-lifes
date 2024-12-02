@@ -32,4 +32,15 @@ class SiteController extends Controller
 
         return view('site.livro', compact(['livro', 'comentarios']));
     }
+
+    public function pesquisar(Request $request) {
+        $request->validate([
+            'pesquisar' => 'required|string|min:1'
+        ]);
+
+        $livros = Livro::where('titulo', 'LIKE', "%{$request->pesquisar}%")
+            ->orderBy('titulo', 'DESC')
+            ->paginate(12);
+        return view('site.pesquisa', compact('livros'));
+    }
 }

@@ -57,8 +57,8 @@
             </ul>
 
             <!-- Formulário de pesquisa -->
-            <form class="flex items-center space-x-2">
-                <input type="search" placeholder="{{ __('Search') }}" class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            <form class="flex items-center space-x-2" method="GET" action="{{ route('site.livro.pesquisar') }}">
+                <input type="search" id="pesquisar" name="pesquisar"  placeholder="{{ __('Search') }}" class="px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" />
                 <button type="submit" class="border border-purple-600 text-white px-4 py-2 rounded hover:bg-teal-500">
                     {{ __("Search") }}
                 </button>
